@@ -15,6 +15,10 @@ return {
   },
   opts = {
     filesystem = {
+      follow_current_file = {
+        enabled = true, -- keeps the focus on the currently active buffer in neotree
+        leave_dirs_open = false,
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',
