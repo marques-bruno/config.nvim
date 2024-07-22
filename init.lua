@@ -220,13 +220,68 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   priority = 1000,
+  --   opts = {},
+  --   init = function()
+  --     vim.cmd.colorscheme 'catppuccin-mocha'
+  --   end,
+  -- },
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    'AlexvZyl/nordic.nvim',
     priority = 1000,
-    opts = {},
-    init = function()
-      vim.cmd.colorscheme 'catppuccin-mocha'
+    config = function()
+      local theme = require 'nordic'
+      theme.setup {
+        -- This callback can be used to override the colors used in the palette.
+        on_palette = function(palette)
+          return palette
+        end,
+        -- Enable bold keywords.
+        bold_keywords = false,
+        -- Enable italic comments.
+        italic_comments = true,
+        -- Enable general editor background transparency.
+        transparent_bg = true,
+        -- Enable brighter float border.
+        bright_border = false,
+        -- Reduce the overall amount of blue in the theme (diverges from base Nord).
+        reduced_blue = true,
+        -- Swap the dark background with the normal one.
+        swap_backgrounds = false,
+        -- Override the styling of any highlight group.
+        override = {},
+        -- Cursorline options.  Also includes visual/selection.
+        cursorline = {
+          -- Bold font in cursorline.
+          bold = false,
+          -- Bold cursorline number.
+          bold_number = true,
+          -- Available styles: 'dark', 'light'.
+          theme = 'dark',
+          -- Blending the cursorline bg with the buffer bg.
+          blend = 0.85,
+        },
+        noice = {
+          -- Available styles: `classic`, `flat`.
+          style = 'classic',
+        },
+        telescope = {
+          -- Available styles: `classic`, `flat`.
+          style = 'flat',
+        },
+        leap = {
+          -- Dims the backdrop when using leap.
+          dim_backdrop = false,
+        },
+        ts_context = {
+          -- Enables dark background for treesitter-context window
+          dark_background = true,
+        },
+      }
+      theme.load()
     end,
   },
 
@@ -337,12 +392,13 @@ require('lazy').setup({
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
-          map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('<space>cd', vim.lsp.buf.hover, 'LSP: Hover [D]ocumentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+          -- map('<space>cp', vim.lsp.buf, 'LSP: [P]eek at definition')
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed

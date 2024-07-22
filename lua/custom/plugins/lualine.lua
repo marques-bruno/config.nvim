@@ -155,8 +155,10 @@ local colors = {
 
     ins_left {
       'filename',
+
+      path = 1,
       cond = conditions.buffer_not_empty,
-      color = { fg = colors.magenta, gui = 'bold' },
+      color = { fg = colors.green, gui = 'bold' },
     }
 
     ins_left { 'location' }
